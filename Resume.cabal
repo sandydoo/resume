@@ -17,14 +17,19 @@ common common-options
   build-depends:       aeson
                      , base
                      , bytestring
+                     , directory
+                     , deriving-aeson
                      , doclayout
                      , doctemplates
                      , filepath
                      , mtl
                      , optparse-applicative
+                     , process
                      , relude
+                     , temporary
                      , text
                      , time
+                     , unliftio
 
   mixins:              base hiding (Prelude)
                      , relude (Relude as Prelude)
