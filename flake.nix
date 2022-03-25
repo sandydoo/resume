@@ -21,7 +21,7 @@
             nixpkgs-fmt
             cabal2nix
             haskell-language-server
-            ormolu
+            stylish-haskell
             zlib.dev
           ];
 
