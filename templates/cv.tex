@@ -1,0 +1,184 @@
+\documentclass[9pt]{extarticle}
+\usepackage[top=20mm, bottom=20mm, left=20mm, right=20mm, a4paper, twoside]{geometry}
+\usepackage{fontspec, enumitem, xcolor, hyperref, parskip, datetime2, titlesec, setspace, tabularx}
+
+% Set up fonts
+\newfontfamily\inter{Inter}[
+  LetterSpace=-1,
+  Ligatures={Rare},
+  Contextuals=Alternate,
+  % 1 = Open Digits
+  % 3 = Curved r
+  StylisticSet={1,3},
+  UprightFont = *-Regular,
+  ItalicFont = *-Italic,
+  BoldFont = *-Bold,
+  BoldItalicFont = *-BoldItalic,
+  FontFace = {l}{n}{*-Light},
+  FontFace = {l}{it}{*-LightItalic},
+  FontFace = {mb}{n}{*-Medium},
+  FontFace = {mb}{it}{*-MediumItalic},
+  FontFace = {sb}{n}{*-SemiBold},
+  FontFace = {sb}{it}{*-SemiBoldItalic},
+  FontFace = {eb}{n}{*-ExtraBold},
+  FontFace = {eb}{it}{*-ExtraBoldItalic},
+]
+\DeclareRobustCommand{\mbseries}{\fontseries{mb}\selectfont}
+\DeclareTextFontCommand{\textmb}{\mbseries}
+\DeclareRobustCommand{\sbseries}{\fontseries{sb}\selectfont}
+\DeclareTextFontCommand{\textsb}{\sbseries}
+\DeclareRobustCommand{\ebseries}{\fontseries{eb}\selectfont}
+\DeclareTextFontCommand{\texteb}{\ebseries}
+\DeclareRobustCommand{\lseries}{\fontseries{l}\selectfont}
+\DeclareTextFontCommand{\textl}{\lseries}
+
+\setsansfont{Inter}
+\setmonofont{IBM Plex Mono}
+\urlstyle{sf}
+\setstretch{1.2}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{0em}
+\setlist[itemize]{
+  itemsep=0.2\baselineskip,
+  topsep=0.2\baselineskip,
+  partopsep=0pt,
+  parsep=0pt,
+  leftmargin=*
+}
+\pagestyle{empty}
+\hypersetup{
+  hidelinks
+}
+
+% Colors
+
+% Stone
+\definecolor{gray50}{HTML}{FAFAF9}
+\definecolor{gray100}{HTML}{F5F5F4}
+\definecolor{gray200}{HTML}{E7E5E4}
+\definecolor{gray300}{HTML}{D6D3D1}
+\definecolor{gray400}{HTML}{A8A29E}
+\definecolor{gray500}{HTML}{78716C}
+\definecolor{gray600}{HTML}{57534E}
+\definecolor{gray700}{HTML}{44403C}
+\definecolor{gray800}{HTML}{292524}
+\definecolor{gray900}{HTML}{1C1917}
+
+% Blue Grays
+% \definecolor{gray50}{HTML}{F9FAFB}
+% \definecolor{gray100}{HTML}{F3F4F6}
+% \definecolor{gray200}{HTML}{E5E7EB}
+% \definecolor{gray300}{HTML}{D1D5DB}
+% \definecolor{gray400}{HTML}{9CA3AF}
+% \definecolor{gray500}{HTML}{6B7280}
+% \definecolor{gray600}{HTML}{4B5563}
+% \definecolor{gray700}{HTML}{374151}
+% \definecolor{gray800}{HTML}{1F2937}
+% \definecolor{gray900}{HTML}{111827}
+
+\titleformat{\section}
+  {\large\bfseries\color{gray800}\addfontfeature{LetterSpace=-1.7}}
+  {\thesection}
+  {}{}[]
+\titlespacing*{\section}{0pt}{*3}{*2}
+
+\titleformat{\subsection}[runin]
+  {\normalfont\addfontfeature{LetterSpace=-1.4}}
+  {\thesubsection}
+  {}{}[]
+\titlespacing*{\subsection}{0pt}{*2}{*0}
+
+% Macros
+
+\newcommand{\fetchYear}[1]{%
+  \DTMsavedate{tempfetchyear}{#1}\DTMfetchyear{tempfetchyear}%
+}
+
+\begin{document}
+\inter
+
+% Test font support
+% \textl{This is light,} this is regular, \textmb{this is medium}, \textsb{this is semibold,} \textbf{this is bold.}
+
+% Title and contact details
+
+\begin{minipage}[t]{.7\textwidth}
+  {\Large\bfseries\color{gray800}{$basics.name$}} \\
+  {\color{gray900} $basics.label$ ($basics.pronouns$)}
+\end{minipage}
+\begin{minipage}[t]{.3\textwidth}
+  \small
+  \color{gray600}
+  \raggedleft
+  $basics.email$ \\
+  ${ for(basics.profiles) }
+  ${ it.network } @\href{${ it.url }}{${ it.username }} \\
+  ${ endfor }
+  $basics.timezone$
+\end{minipage}
+
+% Projects
+
+\section*{Selected Projects}
+
+${ for(projects) }
+\begin{minipage}[t]{.9\textwidth}
+  \setlength{\parskip}{.5\baselineskip}
+  \href{${ it.sourceUrl }}{\textmb{${ it.name }}} \newline
+  ${ it.description }. {\color{gray500} Built with ${ for(it.keywords) } ${it}${sep}, ${ endfor }.}
+  \bigskip
+\end{minipage}
+\begin{minipage}[t]{.1\textwidth}
+  \raggedleft
+  {\footnotesize \fetchYear{${ it.startDate }}}
+\end{minipage}
+${ endfor }
+
+% Work
+
+\section*{Work}
+
+${ for(work) }
+\begin{minipage}[t]{.9\textwidth}
+  \textmb{${ it.position }} \notblank{${ it.name }}{at \href{${ it.url }}{${ it.name }}}{}
+  \begin{itemize}
+    \renewcommand{\labelitemi}{·}
+    ${ for(it.highlights) } \item ${ it }. ${ endfor }
+  \end{itemize}
+  \bigskip
+\end{minipage}
+\begin{minipage}[t]{.1\textwidth}
+  \raggedleft\footnotesize
+  \notblank{${ it.endDate }}
+  {\fetchYear{${ it.startDate }}\textendash\fetchYear{${ it.endDate}}}
+  {since \fetchYear{${ it.startDate}}}
+\end{minipage}
+${ endfor }
+
+% Education
+
+\section*{Education}
+
+${ for(education) }
+\begin{minipage}[t]{.9\textwidth}
+  \href{${ it.url }}{\textmb{${ it.studyType } in ${ it.area }}, ${ it.institution }} \newline
+  {\color{gray800} ${ for(it.details) } ${ it }.\space ${ endfor }}
+  \bigskip
+\end{minipage}
+\begin{minipage}[t]{.1\textwidth}
+  \raggedleft
+  {\footnotesize\fetchYear{${ it.startDate }}}
+\end{minipage}
+${ endfor }
+
+% Skills
+
+\section*{Skills \& Miscellaneous}
+
+\textmb{Languages:} ${ for(programmingLanguages) } ${ it }${ sep }, ${ endfor }.
+
+\textmb{Spoken languages:} ${ for(languages) } \lowercase{${it.fluency }} in ${ it.language }${ sep }, ${ endfor }.
+
+\textmb{Interests:} ${ for(interests) } ${ it }${sep}, ${ endfor }.
+
+\end{document}
