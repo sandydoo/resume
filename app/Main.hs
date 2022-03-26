@@ -27,8 +27,8 @@ import qualified Text.DocTemplates    as Template
 import           UnliftIO.Exception
 
 data Flags = Flags
-  { flagPathToJson     :: FilePath,
-    flagPathToTemplate :: FilePath
+  { flagPathToJson     :: FilePath
+  , flagPathToTemplate :: FilePath
   }
 
 flagParser :: CLI.Parser Flags
