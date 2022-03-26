@@ -166,8 +166,8 @@ ${ for(education) }
   \bigskip
 \end{minipage}
 \begin{minipage}[t]{.1\textwidth}
-  \raggedleft
-  {\footnotesize\fetchYear{${ it.startDate }}}
+  \raggedleft\footnotesize
+  \fetchYear{${ it.startDate }}\textendash\fetchYear{${ it.endDate }}
 \end{minipage}
 ${ endfor }
 
@@ -175,10 +175,10 @@ ${ endfor }
 
 \section*{Skills \& Miscellaneous}
 
-\textmb{Languages:} ${ for(programmingLanguages) } ${ it }${ sep }, ${ endfor }.
+\textmb{Tech ->} ${ for(tech) } ${ it }${ sep }, ${ endfor }.
 
-\textmb{Spoken languages:} ${ for(languages) } \lowercase{${it.fluency }} in ${ it.language }${ sep }, ${ endfor }.
+\textmb{Spoken languages ->} ${ for(languages) } \lowercase{${it.fluency }} in ${ it.language }${ sep }, ${ endfor }.
 
-\textmb{Interests:} ${ for(interests) } ${ it }${sep}, ${ endfor }.
+\textmb{Interests ->} ${ for(interests) } ${ it }${sep}, ${ endfor }.
 
 \end{document}
