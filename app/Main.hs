@@ -1,6 +1,7 @@
 {-# LANGUAGE DataKinds           #-}
 {-# LANGUAGE DerivingVia         #-}
 {-# LANGUAGE FlexibleContexts    #-}
+{-# LANGUAGE LambdaCase          #-}
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE PolyKinds           #-}
 {-# LANGUAGE RecordWildCards     #-}
@@ -11,10 +12,14 @@ module Main (main) where
 
 import           Control.Arrow        (left)
 import           Control.Exception
+import           Control.Lens         hiding ((<.>))
 import qualified Data.Aeson           as Json
+import           Data.Aeson.Lens
 import qualified Data.ByteString.Lazy as BL
 import qualified Data.Text            as Text
 import qualified Data.Text.IO         as TIO
+import           Data.Time.Clock
+import           Data.Time.Format
 import qualified Options.Applicative  as CLI
 import qualified System.Directory     as System
 import qualified System.Exit          as System
@@ -48,7 +53,8 @@ data TemplateFormat
 data Problem
   = CannotDecodeJson String
   | CannotCompileTemplate String
-  | CannotRunBuild String
+  | CannotRunBuild Text
+  | CannotGetCommitHash String
   | UnsupportedTemplateFormat String
   deriving stock (Eq, Show)
 
@@ -74,7 +80,7 @@ main = flip catchAny handler $ do
     exitCode <-
       case format of
         LaTex -> do
-          runCommandWithDir tmpDir "latexmk" ["-xelatex", show fileName]
+          runCommandWithDir (Just tmpDir) "latexmk" ["-xelatex", show fileName]
 
     case exitCode of
       (System.ExitSuccess, _, _) -> do
@@ -82,7 +88,9 @@ main = flip catchAny handler $ do
         let outputPdf = baseName <.> "pdf"
         System.copyFile (tmpDir </> outputPdf) outputPdf
 
-      (System.ExitFailure _, _, err) -> throw (CannotRunBuild err)
+      (System.ExitFailure _, _, err) -> do
+        log <- TIO.readFile (tmpDir </> baseName <.> "log")
+        throw $ CannotRunBuild (Text.append (toText err) log)
 
 
   where
@@ -90,11 +98,14 @@ main = flip catchAny handler $ do
 
 fillTemplate :: TemplateFormat -> Flags -> IO Text
 fillTemplate format Flags {..} = do
+    hash <- getCommitShortHash
+    date <- getCurrentFormattedDate
     jsonData <- throwLeft $ decodeJsonResume <$> readFileAsByteString flagPathToJson
     compiledTemplate <- throwLeft $ compileTemplate =<< readFileAsText flagPathToTemplate
 
     pure $ Template.render Nothing $
-      Template.renderTemplate compiledTemplate (escapeJson format jsonData)
+      Template.renderTemplate compiledTemplate $
+        escapeJson format jsonData & _Object . at "version" ?~ Json.String (hash <> date)
 
   where
     throwLeft = fmap (either throw id)
@@ -138,16 +149,26 @@ reportProblem problem =
   case problem of
     CannotDecodeJson e -> "There’s something wrong with the JSON file.\n" <> e
     CannotCompileTemplate e -> "There’s something wrong with the template.\n" <> e
-    CannotRunBuild e -> "Build error: \n" <> e
+    CannotRunBuild e -> "Build error: \n" <> show e
+    CannotGetCommitHash e -> "Can’t read latest commit hash: \n" <> show e
     UnsupportedTemplateFormat extension -> "The " <> extension <> " template format is not supported"
 
-runCommandWithDir :: FilePath -> String -> [String] -> IO (System.ExitCode, String, String)
+getCommitShortHash :: IO Text
+getCommitShortHash =
+  runCommandWithDir Nothing "git" ["rev-parse", "--short", "HEAD"] >>= \case
+    (System.ExitSuccess, hash, _)  -> pure $ toText hash
+    (System.ExitFailure _, _, err) -> throw $ CannotGetCommitHash err
+
+getCurrentFormattedDate :: IO Text
+getCurrentFormattedDate = toText . formatTime defaultTimeLocale "%F %X" <$> getCurrentTime
+
+runCommandWithDir :: Maybe FilePath -> String -> [String] -> IO (System.ExitCode, String, String)
 runCommandWithDir cwd cmd args =
   Proc.readCreateProcessWithExitCode proc ""
   where
     proc = Proc.CreateProcess
       { cmdspec = Proc.RawCommand cmd args
-      , cwd = Just cwd
+      , cwd = cwd
       , env = Nothing
       , std_in = Proc.Inherit
       , std_out = Proc.Inherit

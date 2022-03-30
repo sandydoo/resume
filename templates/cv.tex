@@ -1,6 +1,6 @@
 \documentclass[9pt]{extarticle}
 \usepackage[top=20mm, bottom=20mm, left=20mm, right=20mm, a4paper, twoside]{geometry}
-\usepackage{fontspec, enumitem, xcolor, hyperref, parskip, datetime2, titlesec, setspace, tabularx}
+\usepackage{fontspec, enumitem, xcolor, fancyhdr, hyperref, parskip, datetime2, titlesec, setspace, tabularx}
 
 % Set up fonts
 \newfontfamily\inter{Inter}[
@@ -45,12 +45,18 @@
   parsep=0pt,
   leftmargin=*
 }
-\pagestyle{empty}
 \hypersetup{
   pdftitle = { Curriculum Vitae },
   pdfauthor = { $basics.name$ },
   hidelinks,
 }
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headruleskip}{0pt}
+\renewcommand{\headrulewidth}{0pt}
+% \rhead{Overleaf}
+% \lhead{Guides and tutorials}
+\lfoot{\inter\tiny\color{gray300} $version$}
 
 % Colors
 

@@ -22,6 +22,8 @@ common common-options
                      , doclayout
                      , doctemplates
                      , filepath
+                     , lens
+                     , lens-aeson
                      , mtl
                      , optparse-applicative
                      , process
