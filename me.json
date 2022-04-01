@@ -1,0 +1,154 @@
+{
+  "basics": {
+    "name": "Sander Melnikov",
+    "label": "Software Engineer and trained Data Scientist",
+    "pronouns": "he / him",
+    "email": "hey@sandydoo.me",
+    "summary": "I’m a software engineer and trained data scientist.",
+    "timezone": "UTC +4",
+    "profiles": [
+      {
+        "network": "Twitter",
+        "username": "sandy_doo",
+        "url": "https://twitter.com/sandy_doo"
+      },
+      {
+        "network": "GitHub",
+        "username": "sandydoo",
+        "url": "https://gtihub.com/sandydoo"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "",
+      "position": "Freelance Developer",
+      "url": "",
+      "startDate": "2019-01-01",
+      "endDate": "",
+      "summary": "",
+      "highlights": [
+        "Focused on open-source and mastering functional, statically typed programming languages, like Haskell, Elm, and Rust"
+      ]
+    },
+    {
+      "name": "Campusboard",
+      "position": "Lead Software Engineer",
+      "url": "https://campusboard.co.uk",
+      "startDate": "2016-11-01",
+      "endDate": "2018-03-01",
+      "summary": "I lead the development of the student accommodation platform, which resulted in the company’s successful pivot from a university marketplace to an aggregator and reseller of student accommodation. My last project was an AirBnB-style interface",
+      "highlights": [
+        "Pivoted the company from a university marketplace to a reseller of student accommodation targeting the UK market",
+        "Designed and developed the student accommodation platform, and integrated it into the existing product",
+        "Created and open-sourced the popular Top #50 Ember.js addon — Ember Google Maps",
+        "Worked full-stack with Ruby on Rails, Ruby, Ember.js, JavaScript, PostgreSQL, Redis, AWS, and Heroku"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Flux",
+      "description": "A cross-platform fluid simulation inspired by the macOS Drift screensaver",
+      "keywords": ["Rust", "Elm", "WebGL", "WebAssembly", "OpenGL", "Nix"],
+      "startDate": "2021-10-01",
+      "endDate": "2022-02-01",
+      "sourceUrl": "https://github.com/sandydoo/flux/",
+      "url": "https://flux.sandydoo.me/",
+      "type": "visualisation"
+    },
+    {
+      "name": "Polar Clock",
+      "description": "A colourful animated clock in polar coordinates built with Elm",
+      "keywords": ["Elm", "SVG"],
+      "startDate": "2020-04-12",
+      "endDate": "",
+      "sourceUrl": "https://github.com/sandydoo/PolarClockElm/",
+      "url": "https://polarclockelm.sandydoo.me/",
+      "type": "visualisation"
+    },
+    {
+      "name": "Mullvad Configs",
+      "description": "A CLI utility to generate up-to-date Wireguard configs for Mullvad",
+      "keywords": ["Haskell", "Nix"],
+      "startDate": "2020-04-05",
+      "endDate": "",
+      "sourceUrl": "https://github.com/sandydoo/MullvadConfigs/",
+      "url": "",
+      "type": "utility"
+    },
+    {
+      "name": "Ember Google Maps",
+      "description": "A friendly addon for working with Google Maps in Ember. A Top #50 Ember.js addon",
+      "keywords": ["JavaScript", "Ember.js", "Google Maps"],
+      "startDate": "2018-01-27",
+      "endDate": "",
+      "sourceUrl": "https://github.com/sandydoo/ember-google-maps/",
+      "url": "https://embergooglemaps.sandydoo.me/",
+      "type": "library"
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Oxford",
+      "url": "https://www.stats.ox.ac.uk/",
+      "area": "Applied Statistics",
+      "studyType": "Master of Science",
+      "startDate": "2015-10-01",
+      "endDate": "2016-09-01",
+      "details": [
+        "First class for dissertation",
+        "Worked on evaluating the performance of the Transport for London underground network under critical conditions"
+      ]
+    },
+    {
+      "institution": "University of Exeter",
+      "url": "https://business-school.exeter.ac.uk/",
+      "area": "Economics & Finance",
+      "studyType": "Bachelor of Arts",
+      "startDate": "2012-10-01",
+      "endDate": "2015-06-01",
+      "details": [
+        "First class",
+        "Dean’s commendation",
+        "Wrote a dissertation on the effects of communication policy on the Fed Fund futures rate"
+      ]
+    }
+  ],
+  "tech": [
+    "Haskell",
+    "Elm",
+    "Rust",
+    "Nix",
+    "JavaScript",
+    "Ruby",
+    "Python",
+    "R",
+    "Git",
+    "AWS",
+    "Continuous Integration",
+    "Linux",
+    "MacOS"
+  ],
+  "interests": [
+    "compilers",
+    "category theory",
+    "homotopy theory",
+    "alternative PL designs",
+    "data visualisation"
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native"
+    },
+    {
+      "language": "Russian",
+      "fluency": "Fluent"
+    },
+    {
+      "language": "German",
+      "fluency": "Beginner"
+    }
+  ]
+}
