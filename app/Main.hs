@@ -6,12 +6,13 @@
 {-# LANGUAGE PolyKinds           #-}
 {-# LANGUAGE RecordWildCards     #-}
 {-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications    #-}
 
 
 module Main (main) where
 
 import           Control.Arrow        (left)
-import           Control.Exception
+import           Control.Exception    hiding (throwIO)
 import           Control.Lens         hiding ((<.>))
 import qualified Data.Aeson           as Json
 import           Data.Aeson.Lens
@@ -89,7 +90,7 @@ main = flip catchAny handler $ do
       System.copyFile (tmpDir </> outputPdf) outputPdf
 
     (System.ExitFailure _, _, err) -> do
-      log <- TIO.readFile (tmpDir </> baseName <.> "log")
+      log <- readFileAsText (tmpDir </> baseName <.> "log")
       throw $ CannotRunBuild (Text.append (toText err) log)
 
 
@@ -114,7 +115,7 @@ readFileAsByteString :: MonadIO m => FilePath -> m BL.ByteString
 readFileAsByteString = liftIO . BL.readFile
 
 readFileAsText :: MonadIO m => FilePath -> m Text
-readFileAsText = liftIO . TIO.readFile
+readFileAsText path = decodeUtf8 @Text @BL.ByteString <$> liftIO (BL.readFile path)
 
 escapeJson :: TemplateFormat -> Json.Value -> Json.Value
 escapeJson LaTex = escapeLatex
