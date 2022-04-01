@@ -25,7 +25,6 @@ import qualified System.Directory     as System
 import qualified System.Exit          as System
 import           System.FilePath      ((<.>), (</>))
 import qualified System.FilePath      as FP
-import qualified System.IO.Temp       as Temp
 import qualified System.Process       as Proc
 import qualified Text.DocLayout       as Template
 import qualified Text.DocTemplates    as Template
@@ -74,23 +73,24 @@ main = flip catchAny handler $ do
   let format = flip fromMaybe (detectFormat fileName) $
                  throw $ UnsupportedTemplateFormat (FP.takeExtension fileName)
 
-  Temp.withTempDirectory "." "temp" $ \tmpDir -> do
-    fillTemplate format flags >>= TIO.writeFile (tmpDir </> fileName)
+  let tmpDir = "temp"
+  System.createDirectoryIfMissing False tmpDir
+  fillTemplate format flags >>= TIO.writeFile (tmpDir </> fileName)
 
-    exitCode <-
-      case format of
-        LaTex -> do
-          runCommandWithDir (Just tmpDir) "latexmk" ["-xelatex", show fileName]
+  exitCode <-
+    case format of
+      LaTex -> do
+        runCommandWithDir (Just tmpDir) "latexmk" ["-xelatex", show fileName]
 
-    case exitCode of
-      (System.ExitSuccess, _, _) -> do
-        TIO.putStrLn "✍️  Resume created"
-        let outputPdf = baseName <.> "pdf"
-        System.copyFile (tmpDir </> outputPdf) outputPdf
+  case exitCode of
+    (System.ExitSuccess, _, _) -> do
+      TIO.putStrLn "✍️  Resume created"
+      let outputPdf = baseName <.> "pdf"
+      System.copyFile (tmpDir </> outputPdf) outputPdf
 
-      (System.ExitFailure _, _, err) -> do
-        log <- TIO.readFile (tmpDir </> baseName <.> "log")
-        throw $ CannotRunBuild (Text.append (toText err) log)
+    (System.ExitFailure _, _, err) -> do
+      log <- TIO.readFile (tmpDir </> baseName <.> "log")
+      throw $ CannotRunBuild (Text.append (toText err) log)
 
 
   where

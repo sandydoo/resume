@@ -28,7 +28,6 @@ common common-options
                      , optparse-applicative
                      , process
                      , relude
-                     , temporary
                      , text
                      , time
                      , unliftio
