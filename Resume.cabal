@@ -56,13 +56,3 @@ executable create-resume
   ghc-options:         -threaded
                        -rtsopts
                        -with-rtsopts=-N
-
-test-suite create-resume-test
-  import:              common-options
-  type:                exitcode-stdio-1.0
-  hs-source-dirs:      test
-  main-is:             Spec.hs
-
-  ghc-options:         -threaded
-                       -rtsopts
-                       -with-rtsopts=-N
