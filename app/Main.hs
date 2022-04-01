@@ -11,24 +11,24 @@
 
 module Main (main) where
 
-import           Control.Arrow        (left)
-import           Control.Exception    hiding (throwIO)
-import           Control.Lens         hiding ((<.>))
-import qualified Data.Aeson           as Json
+import           Control.Arrow              (left)
+import           Control.Exception          hiding (throwIO)
+import           Control.Lens               hiding ((<.>))
+import qualified Data.Aeson                 as Json
 import           Data.Aeson.Lens
-import qualified Data.ByteString.Lazy as BL
-import qualified Data.Text            as Text
-import qualified Data.Text.IO         as TIO
+import qualified Data.ByteString.Lazy       as BL
+import qualified Data.ByteString.Lazy.Char8 as BL8
+import qualified Data.Text                  as Text
 import           Data.Time.Clock
 import           Data.Time.Format
-import qualified Options.Applicative  as CLI
-import qualified System.Directory     as System
-import qualified System.Exit          as System
-import           System.FilePath      ((<.>), (</>))
-import qualified System.FilePath      as FP
-import qualified System.Process       as Proc
-import qualified Text.DocLayout       as Template
-import qualified Text.DocTemplates    as Template
+import qualified Options.Applicative        as CLI
+import qualified System.Directory           as System
+import qualified System.Exit                as System
+import           System.FilePath            ((<.>), (</>))
+import qualified System.FilePath            as FP
+import qualified System.Process             as Proc
+import qualified Text.DocLayout             as Template
+import qualified Text.DocTemplates          as Template
 import           UnliftIO.Exception
 
 data Flags = Flags
@@ -76,7 +76,7 @@ main = flip catchAny handler $ do
 
   let tmpDir = "temp"
   System.createDirectoryIfMissing False tmpDir
-  fillTemplate format flags >>= TIO.writeFile (tmpDir </> fileName)
+  BL.writeFile (tmpDir </> fileName) . encodeUtf8 =<< fillTemplate format flags
 
   exitCode <-
     case format of
@@ -85,7 +85,7 @@ main = flip catchAny handler $ do
 
   case exitCode of
     (System.ExitSuccess, _, _) -> do
-      TIO.putStrLn "✍️  Resume created"
+      BL8.putStrLn "✍️  Resume created"
       let outputPdf = baseName <.> "pdf"
       System.copyFile (tmpDir </> outputPdf) outputPdf
 
@@ -95,7 +95,7 @@ main = flip catchAny handler $ do
 
 
   where
-    handler e = TIO.hPutStrLn stderr (Text.pack $ displayException e) >> exitFailure
+    handler e = BL8.hPutStrLn stderr (encodeUtf8 . Text.pack $ displayException e) >> exitFailure
 
 fillTemplate :: TemplateFormat -> Flags -> IO Text
 fillTemplate format Flags {..} = do
