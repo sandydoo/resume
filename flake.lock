@@ -65,7 +65,8 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "nixpkgs": "nixpkgs",
-        "tex2nix-flake": "tex2nix-flake"
+        "tex2nix-flake": "tex2nix-flake",
+        "texutils": "texutils"
       }
     },
     "tex2nix-flake": {
@@ -84,6 +85,21 @@
       "original": {
         "owner": "Mic92",
         "repo": "tex2nix",
+        "type": "github"
+      }
+    },
+    "texutils": {
+      "locked": {
+        "lastModified": 1642866724,
+        "narHash": "sha256-4d3zqny32g34lQuS4Ucab2vjwTUU/YDZpZ5/YrIza8I=",
+        "owner": "Ninlives",
+        "repo": "texutils.nix",
+        "rev": "64a39376be910bd6cc1807a67f534ae04b784ca8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Ninlives",
+        "repo": "texutils.nix",
         "type": "github"
       }
     }
