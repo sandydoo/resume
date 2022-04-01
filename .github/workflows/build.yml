@@ -18,5 +18,10 @@ jobs:
           extra_nix_config: |
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build app
+      - name: Build resume
         run: nix build
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: result/*.pdf
