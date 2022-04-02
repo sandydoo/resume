@@ -44,7 +44,7 @@
             tex2nix
           ];
 
-          inputsFrom = [ packages.resume ];
+          # inputsFrom = [ packages.resume ];
         };
       }
     );
