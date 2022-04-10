@@ -120,7 +120,7 @@
   \raggedleft
   \href{mailto:$basics.email$}{$basics.email$} \\
   ${ for(basics.profiles) }
-  ${ it.network } @\href{${ it.url }}{${ it.username }} \\
+  \href{${ it.url }}{${ it.network } @${ it.username }} \\
   ${ endfor }
   $basics.timezone$
 \end{minipage}
