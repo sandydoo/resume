@@ -133,7 +133,7 @@ ${ for(projects) }
 \begin{minipage}[t]{.9\textwidth}
   \setlength{\parskip}{.5\baselineskip}
   \href{${ it.sourceUrl }}{\textmb{${ it.name }}} \newline
-  ${ it.description }. {\color{gray500} Built with ${ for(it.keywords) } ${it}${sep}, ${ endfor }.}
+  ${ it.description }. {\color{gray500} Built with ${ it.keywords/first } ${ for(it.keywords/rest/allbutlast) }${it}, ${ endfor } and ${ it.keywords/last }.}
   \bigskip
 \end{minipage}
 \begin{minipage}[t]{.1\textwidth}
