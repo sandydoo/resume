@@ -58,6 +58,16 @@
       "type": "visualisation"
     },
     {
+      "name": "Flux Screensavers",
+      "description": "Native screensavers for Flux",
+      "keywords": ["Rust", "C", "OpenGL", "Swift", "XCode", "SDL2"],
+      "startDate": "2022-02-06",
+      "endDate": "",
+      "sourceUrl": "https://github.com/sandydoo/flux-screensavers/",
+      "url": "https://flux.sandydoo.me/",
+      "type": "visualisation"
+    },
+    {
       "name": "Polar Clock",
       "description": "A colourful animated clock in polar coordinates built with Elm",
       "keywords": ["Elm", "SVG"],
