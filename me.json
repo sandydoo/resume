@@ -5,6 +5,7 @@
     "pronouns": "he / him",
     "email": "hey@sandydoo.me",
     "summary": "I’m a software engineer and trained data scientist.",
+    "location": "Tbilisi, Georgia",
     "timezone": "UTC +4",
     "profiles": [
       {
@@ -22,21 +23,21 @@
   "work": [
     {
       "name": "",
-      "position": "Freelance Developer",
+      "position": "Taking a career break",
       "url": "",
       "startDate": "2019-01-01",
       "endDate": "",
       "summary": "",
       "highlights": [
-        "Focused on open-source and mastering functional, statically typed programming languages, like Haskell, Elm, and Rust"
+        "I’m taking a break to freelance and work on open-source software. I’m learning esoteric programming languages, digging into type theory, exploring low-level graphics programming, and trying to figure out how it can all fit together to improve how we write software."
       ]
     },
     {
       "name": "Campusboard",
       "position": "Lead Software Engineer",
       "url": "https://campusboard.co.uk",
-      "startDate": "2016-11-01",
-      "endDate": "2018-03-01",
+      "startDate": "2016-09-01",
+      "endDate": "2018-05-01",
       "summary": "I lead the development of the student accommodation platform, which resulted in the company’s successful pivot from a university marketplace to an aggregator and reseller of student accommodation. My last project was an AirBnB-style interface",
       "highlights": [
         "Pivoted the company from a university marketplace to a reseller of student accommodation targeting the UK market",
@@ -49,7 +50,7 @@
   "projects": [
     {
       "name": "Flux",
-      "description": "A cross-platform fluid simulation inspired by the macOS Drift screensaver",
+      "description": "A bespoke cross-platform fluid simulation inspired by the macOS Drift screensaver",
       "keywords": ["Rust", "Elm", "WebGL", "WebAssembly", "OpenGL", "Nix"],
       "startDate": "2021-10-01",
       "endDate": "2022-02-01",
@@ -89,7 +90,7 @@
     },
     {
       "name": "Ember Google Maps",
-      "description": "A friendly addon for working with Google Maps in Ember. A Top #50 Ember.js addon",
+      "description": "A Top #50 Ember.js addon for working with Google Maps",
       "keywords": ["JavaScript", "Ember.js", "Google Maps"],
       "startDate": "2018-01-27",
       "endDate": "",
@@ -135,8 +136,7 @@
     "Python",
     "R",
     "Git",
-    "AWS",
-    "Continuous Integration",
+    "Docker",
     "Linux",
     "MacOS"
   ],
