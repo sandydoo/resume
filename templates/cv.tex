@@ -130,13 +130,13 @@
 \section*{Selected Projects}
 
 ${ for(projects) }
-\begin{minipage}[t]{.9\textwidth}
+\begin{minipage}[t]{.85\textwidth}
   \setlength{\parskip}{.5\baselineskip}
   \href{${ it.sourceUrl }}{\textmb{${ it.name }}} \newline
   ${ it.description }. {\color{gray500} Built with ${ for(it.keywords) } ${it}${sep}, ${ endfor }.}
   \bigskip
 \end{minipage}
-\begin{minipage}[t]{.1\textwidth}
+\begin{minipage}[t]{.15\textwidth}
   \raggedleft
   {\footnotesize \fetchYear{${ it.startDate }}}
 \end{minipage}
@@ -147,7 +147,7 @@ ${ endfor }
 \section*{Work}
 
 ${ for(work) }
-\begin{minipage}[t]{.9\textwidth}
+\begin{minipage}[t]{.85\textwidth}
   \textmb{${ it.position }} \notblank{${ it.name }}{at \href{${ it.url }}{${ it.name }}}{}
   \begin{itemize}
     \renewcommand{\labelitemi}{·}
@@ -155,7 +155,7 @@ ${ for(work) }
   \end{itemize}
   \bigskip
 \end{minipage}
-\begin{minipage}[t]{.1\textwidth}
+\begin{minipage}[t]{.15\textwidth}
   \raggedleft\footnotesize
   \notblank{${ it.endDate }}
   {\fetchYear{${ it.startDate }}\textendash\fetchYear{${ it.endDate}}}
@@ -168,12 +168,12 @@ ${ endfor }
 \section*{Education}
 
 ${ for(education) }
-\begin{minipage}[t]{.9\textwidth}
+\begin{minipage}[t]{.85\textwidth}
   \href{${ it.url }}{\textmb{${ it.studyType } in ${ it.area }}, ${ it.institution }} \newline
   {\color{gray800} ${ for(it.details) } ${ it }.\space ${ endfor }}
   \bigskip
 \end{minipage}
-\begin{minipage}[t]{.1\textwidth}
+\begin{minipage}[t]{.15\textwidth}
   \raggedleft\footnotesize
   \fetchYear{${ it.startDate }}\textendash\fetchYear{${ it.endDate }}
 \end{minipage}
