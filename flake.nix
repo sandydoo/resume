@@ -1,7 +1,7 @@
 {
   description = "My resume";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-21.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.tex2nix-flake.url = "github:Mic92/tex2nix";
   inputs.tex2nix-flake.inputs.utils.follows = "nixpkgs";
