@@ -19,8 +19,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
 
       - name: Build resume
-        # Dirty repo workaround. Wait until NixOS/nix/pull/5758 is released.
-        run: nix build .\?rev=$(git rev-parse HEAD)
+        run: nix build
 
       - name: Release
         uses: softprops/action-gh-release@v1
